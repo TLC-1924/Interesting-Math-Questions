@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Math Questions</title>
+  <style>
+    :root {
+      --bg-color: #040404;
+      --text-color: #d0d0d0;
+      --accent-color: #c90000;
+      --secondary-color: #800000;
+    }
+
+    /* smooth transition between themes */
+    * {
+      transition: background-color 0.7s ease, color 0.7s ease, border-color 0.7s ease, text-shadow 0.7s ease, box-shadow 0.7s ease;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: "Times New Roman", Times, serif;
+      font-size: 26px;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      opacity: 0;
+      animation: fadePageIn 1.2s ease forwards;
+    }
+
+    @keyframes fadePageIn { to { opacity: 1; } }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 30px 0;
+      border-bottom: 2px solid #1a1a1a;
+      background: linear-gradient(90deg, #000, #080808, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+    
+
+    header img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--secondary-color);
+      box-shadow: 0 0 6px var(--secondary-color);
+    }
+
+    h1 {
+      color: var(--accent-color);
+      font-weight: bold;
+      letter-spacing: 1px;
+      font-size: 37px;
+      margin: 0;
+      text-shadow: 0 0 2px var(--accent-color), 0 0 4px var(--secondary-color);
+      animation: gentle-glow 5s ease-in-out infinite;
+    }
+
+    /* reduced glow intensity */
+    @keyframes gentle-glow {
+      0%, 100% { text-shadow: 0 0 2px var(--accent-color), 0 0 4px var(--secondary-color); }
+      50% { text-shadow: 0 0 5px var(--accent-color), 0 0 7px var(--secondary-color); }
+    }
+
+    .theme-picker {
+      position: fixed;
+      top: 20px;
+      right: 25px;
+      display: flex;
+      gap: 12px;
+      z-index: 9999;
+    }
+
+    .theme-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      cursor: pointer;
+      transition: 0.25s;
+      box-shadow: 0 0 5px #000;
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.25);
+      box-shadow: 0 0 10px #fff;
+    }
+
+
+    .container {
+      width: 92%;
+      max-width: 1100px;
+      margin: 50px auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #0d0d0d;
+      border: 1px solid #333;
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    th, td {
+      padding: 20px 12px;
+      border-bottom: 1px solid #222;
+    }
+
+    th {
+      background-color: #1a1a1a;
+      color: var(--accent-color);
+      font-size: 25px;
+      border-bottom: 2px solid var(--secondary-color);
+    }
+
+    td {
+      font-size: 24px;
+      animation: fade-in 0.8s ease forwards;
+      opacity: 0;
+      color: var(--text-color);
+    }
+
+    @keyframes fade-in { to { opacity: 1; } }
+
+    tr:hover { background-color: #141414; }
+
+    button {
+      background-color: var(--accent-color);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: bold;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 22px;
+      text-shadow: 0 0 2px var(--secondary-color);
+    }
+
+    button:hover { background-color: var(--secondary-color); }
+
+    .view-pdf {
+      display: block;
+      margin: 40px auto 25px auto;
+      background-color: #111;
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+      font-size: 25px;
+      box-shadow: 0 0 8px var(--secondary-color);
+      padding: 14px 28px;
+      border-radius: 10px;
+    }
+
+
+    .overlay {
+      position: fixed;
+      display: none;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.96);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .overlay img {
+      max-width: 93%;
+      max-height: 93%;
+      border: 3px solid var(--accent-color);
+      border-radius: 10px;
+      box-shadow: 0 0 25px var(--accent-color);
+    }
+
+    .overlay .close {
+      position: absolute;
+      top: 25px;
+      left: 40px;
+      color: var(--accent-color);
+      font-size: 46px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    iframe {
+      width: 100%;
+      height: 800px;
+      border: 2px solid var(--accent-color);
+      border-radius: 10px;
+      margin-top: 40px;
+      box-shadow: 0 0 18px var(--secondary-color);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--secondary-color);
+      padding: 25px 0;
+      border-top: 1px solid #111;
+      font-size: 21px;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+  <div class="theme-picker">
+    <div class="theme-btn" id="theme1" style="background:#c90000;" title="Red Theme"></div>
+    <div class="theme-btn" id="theme2" style="background:#22c900;" title="Green Theme"></div>
+    <div class="theme-btn" id="theme3" style="background:#0077ff;" title="Blue Theme"></div>
+  </div>
+
+  <header>
+    <img src="assets/images/logo.png" alt="Logo">
+    <h1>INTERESTING MATH QUESTIONS</h1>
+    <img src="assets/images/logo.png" alt="Logo">
+  </header>
+
+  <div class="container">
+    <button class="view-pdf" onclick="scrollToPDF()">VIEW PDF 📄</button>
+
+    <table id="questionsTable">
+      <thead>
+        <tr>
+          <th>Question Number</th>
+          <th>Main Topic</th>
+          <th>View Image</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div id="pdfSection">
+      <h2 style="color:var(--accent-color); margin-top:70px;">The Questions (PDF)</h2>
+      <iframe src="assets/pdf/questions.pdf"></iframe>
+      
+      <div class="acknowledgements" style="margin-top:60px; font-size:22px; line-height:1.6; color:var(--text-color);">
+  <h2 style="color:var(--accent-color); text-shadow:0 0 4px var(--secondary-color);">Comments</h2>
+  <p>
+    Some of the questions on this page may be inspired by public educational materials, including YouTube videos, online resources, and past exams, while some others are original creations of ours (hence feel free to reach out if any seem incorrect or impossible - although, none should be). Full credit goes to the original creators and educators for their contributions. 
+    Questions are shared here solely for non-commercial educational purposes, with the aim of spreading interest and understanding in mathematics.
+  </p>
+  
+  <p>
+    The order of questions is not based on difficulty (questions were added over time and cover a broad range of topics). Some are quite rigorous, requiring in-depth problem-solving, while others challenge one to find the right approach.
+  </p>
+  
+  <p>
+    "Interesting" is subjective. For us, it’s a mix of problems that we’ve found satisfying, amusing, or uniquely challenging. However, each one is chosen with problem-solving in mind.
+  </p>
+</div>
+
+      
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <span class="close" onclick="closeImage()">&times;</span>
+    <img id="overlayImage" src="">
+  </div>
+
+  <footer>
+    Interesting Math Questions
+  </footer>
+
+  <script>
+    // TOPICS HERE -----------------------------------------------------------
+    const topics = [
+      "Proof by Induction", "Vectors/Geometry", "Roots of Polynomials", "Integration", "Integration", "Maclaurin Series", "Polar Curves", "Integration", "Differential Equations", "Integration", "Polynomials", "Integration", "Vectors", "Limits/Integration", "Differential Equations", "Complex numbers", "Integration", "Roots of Polynomials", "Integration", "Differentiation", "Integration", "Exponents", "Limits", "Exponents",  "Integration",  "Integration", "Integration",  "Radicals",  "Integration",  "Integration", "Proof/Geometry", "Integration",  "Integration", "Exponents", "Integration",  "Radicals", "Integration", "Exponents", "Integration", "Integration", "Radicals", "Number theory", "Number theory", "Fractions", "Integration", "Complex Numbers", "Geometry", "Functions", "Integration", "Number theory", "Sequences and Series", "Exponents", "Summations", "Equations", "Radicals", "Exponents", "Integration",  "Integration",  "Integration",  "Integration", "Matrices", "Integration",  "Integration",  "Integration",  "Integration",  "Integration", "Proof/Geometry", "Proof/Geometry", "Differential Equations", "Integration", "Graph theory", "Integration", "Geometry", "Number theory", "Graph Theory", "Number theory", "Integration",  "Integration",  "Integration", "Functions", "Differential Equations", "Complex Numbers", "Integration", "Integration", "Complex Numbers", "Conic Sections/Polar Curves", "Multivariable Calculus", "Integration", "Number theory", "Groups", "Eigenvalues", "Parametric equations", "Limits of sequences"
+    ];
+
+    // Change number to add more questions
+    const totalImages = 93; // increase
+
+    const tbody = document.querySelector("#questionsTable tbody");
+    let currentImg = 0;
+
+    // check if tbody was found before trying to loop
+    if (tbody) { 
+        for (let i = 1; i <= totalImages; i++) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${i}</td>
+                <td>${topics[i-1] || "MATH TOPIC"}</td>
+                <td><button onclick="viewImage(${i})">View Image</button></td>
+            `;
+            tbody.appendChild(tr);
+        }
+    }
+
+
+    const overlay = document.getElementById("overlay");
+    const overlayImage = document.getElementById("overlayImage");
+
+    function viewImage(num) {
+      currentImg = num;
+      overlayImage.src = `assets/images/${num}.png`;
+      overlay.style.display = "flex";
+    }
+
+    function closeImage() {
+      overlay.style.display = "none";
+      overlayImage.src = "";
+    }
+
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) closeImage();
+    });
+
+    function scrollToPDF() {
+      document.getElementById("pdfSection").scrollIntoView({ behavior: "smooth" });
+    }
+
+    document.addEventListener("keydown", e => {
+      if (overlay.style.display === "flex") {
+        if (e.key === "Escape") closeImage();
+        if (e.key === "ArrowLeft" && currentImg > 1) viewImage(currentImg - 1);
+        if (e.key === "ArrowRight" && currentImg < totalImages) viewImage(currentImg + 1);
+      }
+    });
+    
+
+    // THEMES (RGB)
+    const themes = {
+      theme1: { bg: "#040404", text: "#f5f5f5", accent: "#c90000", secondary: "#800000" }, // Red
+      theme2: { bg: "#041406", text: "#f5fff5", accent: "#22c900", secondary: "#118800" }, // Green
+      theme3: { bg: "#050f1a", text: "#ffffff", accent: "#0077ff", secondary: "#0044aa" }  // Blue
+    };
+
+    function applyTheme(t) {
+      document.documentElement.style.setProperty('--bg-color', t.bg);
+      document.documentElement.style.setProperty('--text-color', t.text);
+      document.documentElement.style.setProperty('--accent-color', t.accent);
+      document.documentElement.style.setProperty('--secondary-color', t.secondary);
+    }
+
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const t = themes[btn.id];
+        if (!t) return;
+        applyTheme(t);
+        localStorage.setItem('theme', btn.id);
+      });
+    });
+
+    const savedTheme = localStorage.getItem('theme') || 'theme1';
+    if (themes[savedTheme]) applyTheme(themes[savedTheme]);
+  </script>
+</body>
+</html>
